@@ -10,7 +10,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findBySku(String sku);
 
     /**
-     * PESSIMISTIC_WRITE generates a database row lock (SELECT ... FOR UPDATE).
+     * PESSIMISTIC_WRITE generates a database row lock (SELECT ... FOR UPDATE). [ race condition fixing ]
+     * [ allowing only single update at  a time ]
      * Concurrent transactions trying to reserve the same SKU wait their turn.
      */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
